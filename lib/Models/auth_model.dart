@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +23,7 @@ class Authentication {
                 onPressed: () {
                   Navigator.of(ctx).pop();
                 },
-                child: Text("OK"))
+                child: const Text("OK"))
           ],
         ),
       );
@@ -36,14 +38,14 @@ class Authentication {
         context: context,
         builder: (ctx) => AlertDialog(
           title: const Text('Info'),
-          content: Text("You succesfully changed your password"),
+          content: const Text("You succesfully changed your password"),
           actions: [
             TextButton(
                 onPressed: () {
                   Navigator.of(ctx).pop();
                   Navigator.of(context).pop();
                 },
-                child: Text("OK"))
+                child: const Text("OK"))
           ],
         ),
       );
@@ -51,15 +53,14 @@ class Authentication {
       await showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('Error occured.'),
+          title: const Text('Error occured.'),
           content: Text(e.toString()),
           actions: [
             TextButton(
                 onPressed: () {
-                  //ctx.router.pop();
                   Navigator.of(ctx).pop();
                 },
-                child: Text("OK"))
+                child: const Text("OK"))
           ],
         ),
       );
@@ -79,19 +80,17 @@ class Authentication {
         actionCodeSettings: ActionCodeSettings(url: ''),
       );
     } catch (e) {
-      print(e.toString());
-      print(e);
       await showDialog(
         context: context,
         builder: (ctx) => AlertDialog(
-          title: Text('Error Occured'),
+          title: const Text('Error Occured'),
           content: Text(e.toString()),
           actions: [
             TextButton(
                 onPressed: () {
                   Navigator.of(ctx).pop();
                 },
-                child: Text("OK"))
+                child: const Text("OK"))
           ],
         ),
       );
@@ -110,20 +109,20 @@ class Authentication {
       await showDialog(
           context: context,
           builder: (ctx) => AlertDialog(
-                  title: Text('Error Occured'),
+                  title: const Text('Error Occured'),
                   content: Text(e.toString()),
                   actions: [
                     TextButton(
                         onPressed: () {
                           Navigator.of(ctx).pop();
                         },
-                        child: Text("OK"))
+                        child: const Text("OK"))
                   ]));
     } catch (e) {
       if (e == 'email-already-in-use') {
-        print('Email already in use.');
+        log('Email already in use.');
       } else {
-        print('Error: $e');
+        log('Error: $e');
       }
     }
   }

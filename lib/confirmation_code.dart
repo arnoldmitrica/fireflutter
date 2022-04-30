@@ -1,8 +1,7 @@
 import 'dart:async';
 
-import 'package:fireflutter/Providers/fireFlutterProvider.dart';
+import 'package:fireflutter/Providers/fire_flutter_provider.dart';
 import 'package:fireflutterui/fireflutterui.dart';
-import 'package:fireflutterui/shared/ff_textstyles.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -61,14 +60,14 @@ class _ConsumerConfirmationCodePageState
                           length: 6,
                         ),
                         const Padding(
-                          padding: const EdgeInsets.only(top: 18),
+                          padding: EdgeInsets.only(top: 18),
                           child: ResendCode(),
                         ),
                       ]),
                 ],
               ),
             )
-          : LoggedIn(),
+          : const LoggedIn(),
     );
   }
 }
@@ -82,7 +81,7 @@ class ResendCode extends ConsumerStatefulWidget {
 
 class _ConsumerResendCodeState extends ConsumerState<ResendCode> {
   late TapGestureRecognizer _tapGestureRecognizer;
-  Duration duration = Duration(seconds: 60);
+  Duration duration = const Duration(seconds: 60);
   Timer? timer;
 
   bool countDown = true;
@@ -100,7 +99,7 @@ class _ConsumerResendCodeState extends ConsumerState<ResendCode> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addTime());
+    timer = Timer.periodic(const Duration(seconds: 1), (_) => addTime());
   }
 
   void addTime() {
@@ -121,7 +120,7 @@ class _ConsumerResendCodeState extends ConsumerState<ResendCode> {
         TextSpan(text: "Didn't receive a code? ", children: [
           TextSpan(
             recognizer: _tapGestureRecognizer,
-            text: duration == Duration(seconds: 0)
+            text: duration == const Duration(seconds: 0)
                 ? "Send code again"
                 : "Wait for ${duration.inSeconds} sec",
             style: FireFlutterTextStyles.poppinsSize12Weight400BlackOpacity60(

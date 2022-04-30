@@ -1,12 +1,11 @@
-import 'dart:math';
+import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fireflutterui/ViewModels/catalogviewmodel.dart';
 import 'package:fireflutterui/shared/ff_constants.dart';
 import 'package:fireflutterui/shared/ff_textfields.dart';
 import 'package:fireflutterui/shared/ff_validators.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../Models/auth_model.dart';
@@ -19,7 +18,7 @@ class ResultTextField {
 }
 
 class FireFlutterViewModelNotifier extends FireFlutterTextFieldNotifier {
-  String verifiactionCode = "";
+  String verificationCode = "";
   bool isLoggedIn = false;
   ResultTextField? checkIfValidPhoneNumberOrEmail() {
     switch (textFieldCase) {
@@ -72,10 +71,10 @@ class FireFlutterViewModelNotifier extends FireFlutterTextFieldNotifier {
   verificationCodeSubmitted(String value) async {
     await FirebaseAuth.instance
         .signInWithCredential(PhoneAuthProvider.credential(
-            verificationId: verifiactionCode, smsCode: value))
+            verificationId: verificationCode, smsCode: value))
         .then((value) async {
       if (value.user != null) {
-        print("pass to home");
+        log("pass to home");
       }
     });
   }
@@ -94,7 +93,7 @@ class FireFlutterViewModelNotifier extends FireFlutterTextFieldNotifier {
               androidInstallApp: true,
             ))
         .then((value) {
-      print("email sent");
+      log("email sent");
     });
   }
 
@@ -106,19 +105,19 @@ class FireFlutterViewModelNotifier extends FireFlutterTextFieldNotifier {
               .signInWithCredential(credential)
               .then((value) async {
             if (value.user != null) {
-              print("user logged in");
+              log("user logged in");
             }
           });
         },
         verificationFailed: (FirebaseAuthException e) {
-          print(e.message);
+          log(e.message.toString());
         },
         codeSent: (String verificationID, int? resendToken) {
-          verifiactionCode = verificationID;
+          verificationCode = verificationID;
           notifyListeners();
         },
         codeAutoRetrievalTimeout: (String verificationID) {
-          verifiactionCode = verificationID;
+          verificationCode = verificationID;
           notifyListeners();
         });
   }
@@ -135,18 +134,10 @@ class FireFlutterViewModelNotifier extends FireFlutterTextFieldNotifier {
   }
 
   Future<String> handleLink(Authentication _auth, Uri link) async {
-    if (link != null) {
-      // UserCredential userCredential =
-      //     await _auth.signInWithEmailAndLink(_email, link);
-      try {
-        await _auth.signInWithEmailAndLink("arnoldmitrica@gmail.com", link);
-      } catch (e) {
-        print(e);
-        return "An error occured";
-      }
-      //User? user = userCredential.user;
-    } else {
-      print("link == null");
+    try {
+      await _auth.signInWithEmailAndLink("arnoldmitrica@gmail.com", link);
+    } catch (e) {
+      return "An error occured";
     }
     return "You are logged successfully, you can change password now";
   }
@@ -176,7 +167,7 @@ class FireFlutterTextFieldNotifier extends ChangeNotifier
     final newCaseState = validateCase(value);
     if (newCaseState == TextFieldCase.almostPhoneNumber ||
         textFieldCase == TextFieldCase.phoneNumber && value.length >= 2) {
-      final valueToBeSearched = value.substring(0, min(value.length, 5));
+      final valueToBeSearched = value.substring(0, math.min(value.length, 5));
       if (valueToBeSearched.characters.elementAt(0) == '+' &&
           valueToBeSearched.length >= 2) {
         var copiedValue = valueToBeSearched;

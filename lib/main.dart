@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-import 'package:fireflutter/Providers/fireFlutterProvider.dart';
-import 'package:fireflutter/authProvider.dart';
+import 'package:fireflutter/Providers/fire_flutter_provider.dart';
+import 'package:fireflutter/auth_provider.dart';
 import 'package:fireflutterui/fireflutterui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,7 +15,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(ProviderScope(child: MaterialApp(home: const FireFlutter())));
+  runApp(const ProviderScope(child: MaterialApp(home: FireFlutter())));
 }
 
 class FireFlutter extends ConsumerStatefulWidget {
@@ -56,13 +58,13 @@ class _ConsumerFireFlutterState extends ConsumerState<FireFlutter>
             content: Text(message),
             duration: const Duration(seconds: 1),
           ));
-          print("isLogged in");
+          log("isLogged in");
         } catch (e) {
-          print(e);
+          log(e.toString());
         }
       }, onError: (e) async {
-        print('onLinkError');
-        print(e.message);
+        log('onLinkError');
+        log(e.message);
       });
       //});
     }
