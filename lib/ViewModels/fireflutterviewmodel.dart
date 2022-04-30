@@ -8,7 +8,7 @@ import 'package:fireflutterui/shared/ff_textfields.dart';
 import 'package:fireflutterui/shared/ff_validators.dart';
 import 'package:flutter/material.dart';
 
-import '../Models/auth_model.dart';
+import '../AuthService/auth_service.dart';
 import '../confirmation_code.dart';
 
 class ResultTextField {
