@@ -8,7 +8,7 @@ final authenticationProvider = Provider<Authentication>((ref) {
 });
 
 final authStateProvider = StreamProvider<User?>((ref) {
-  return ref.read(authenticationProvider).authStateChange;
+  return ref.watch(authenticationProvider).authStateChange;
 });
 
 final fireBaseAuthProvider = Provider<FirebaseAuth>((ref) {
