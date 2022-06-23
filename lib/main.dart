@@ -29,21 +29,18 @@ class _ConsumerFireFlutterState extends ConsumerState<FireFlutter>
     with TickerProviderStateMixin, WidgetsBindingObserver {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     WidgetsBinding.instance?.addObserver(this);
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
     WidgetsBinding.instance?.removeObserver(this);
     super.dispose();
   }
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    // TODO: implement didChangeAppLifecycleState
     super.didChangeAppLifecycleState(state);
 
     if (state == AppLifecycleState.resumed) {
@@ -66,7 +63,6 @@ class _ConsumerFireFlutterState extends ConsumerState<FireFlutter>
         log('onLinkError');
         log(e.message);
       });
-      //});
     }
   }
 
@@ -145,17 +141,4 @@ class _ConsumerFireFlutterState extends ConsumerState<FireFlutter>
     );
   }
 
-  // @override
-  // void didChangeAppLifecycleState(AppLifecycleState state) async {
-  //   if (state == AppLifecycleState.resumed){
-  //     final _timerLink = Timer(
-  //       const Duration(milliseconds: 1000),
-  //           () async {
-  //         final auth = FirebaseAuth.
-  //         final link = await auth.retrieveDynamicLink(context);
-  //         _handleLink(link);
-  //       },
-  //     );
-  //   }
-  // }
 }
